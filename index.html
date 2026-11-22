@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Love Salma ❤️</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    background: #250018;
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+
+    background-image: url("images/love-bg.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #250018;
+
+    z-index: 1;
+}
+
+/* طبقة متحركة */
+.effects {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* الفراشات */
+.butterfly {
+    position: absolute;
+    white-space: nowrap;
+
+    color: white;
+    font-family: Georgia, serif;
+    font-weight: bold;
+
+    text-shadow:
+        0 0 10px white,
+        0 0 20px #ff00cc,
+        0 0 30px #ff69b4;
+
+    animation: fly 9s linear forwards;
+}
+
+.butterfly span {
+    font-size: 17px;
+}
+
+@keyframes fly {
+    0% {
+        transform: translate(0,0) rotate(0deg) scale(.5);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translate(120px,-150px) rotate(25deg) scale(1.2);
+    }
+
+    100% {
+        transform: translate(-100px,-450px) rotate(-20deg) scale(.8);
+        opacity: 0;
+    }
+}
+
+/* القلوب */
+.heart {
+    position: absolute;
+    bottom: -50px;
+
+    animation: heartUp linear forwards;
+}
+
+@keyframes heartUp {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* النجوم */
+.star {
+    position: absolute;
+    color: #fff;
+    animation: sparkle 1.5s infinite alternate;
+}
+
+@keyframes sparkle {
+    from {
+        opacity: .2;
+        transform: scale(.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+
+.name-box {
+    position: fixed;
+    z-index: 5;
+
+    top: 62%;
+    left: 52%;
+    transform: translateX(-50%);
+
+    width: clamp(260px, 26vw, 380px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    width: 95%;
+    height: 68px;
+
+    border: 2px solid #ff8fc9;
+    border-radius: 18px;
+
+    background: rgba(255,255,255,0.94);
+    color: #8b004f;
+
+    text-align: center;
+    font-size: 19px;
+    outline: none;
+
+    box-shadow: 0 0 15px #ff69b4;
+}
+
+button {
+    width: 80%;
+    height: 80px;
+    margin-top: 12px;
+
+    border: 2px solid #ffb4db;
+    border-radius: 30px;
+
+    background: linear-gradient(
+        45deg,
+        #ff005d,
+        #ff69b4,
+        #bd006a
+    );
+
+    color: white;
+    font-size: 19px;
+    font-weight: bold;
+
+    cursor: pointer;
+    box-shadow: 0 0 25px #ff1493;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+.error-message {
+    display: none;
+    color: #fff;
+    background: rgba(100,0,40,0.85);
+    border: 1px solid #ff8fc9;
+    border-radius: 15px;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 15px;
+    text-align: center;
+    box-shadow: 0 0 15px #ff1493;
+}
+
+.shake {
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(-50%); }
+    25% { transform: translateX(calc(-50% - 8px)); }
+    75% { transform: translateX(calc(-50% + 8px)); }
+}
+
+@media(max-width:600px) {
+    .name-box {
+        width: 75%;
+        top: 72%;
+        left: 50%;
+    }
+}
+ }
+
+    input {
+        font-size: 15px;
+        padding: 12px;
+    }
+
+    button {
+        font-size: 17px;
+        padding: 12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- صورة الخلفية -->
+<div class="background"></div>
+
+<!-- التأثيرات -->
+<div class="effects" id="effects"></div>
+
+<!-- خانة الاسم والزر -->
+
+<div class="name-box" id="loginBox">
+
+    <input
+        type="password"
+        id="password"
+        placeholder="اكتبي كلمة السر ياقلب اوفا  ❤️"
+        onkeydown="if(event.key === 'Enter') checkPassword()"
+    >
+
+    <button onclick="checkPassword()">
+        افتحي رسالتك يا قلبي ❤️
+    </button>
+
+    <div class="error-message" id="errorMessage">
+        إنت مش عارف اسمك يا قلب أوفا ولا إيه؟ 😉
+    </div>
+
+</div>
+
+<script>
+
+/* الدخول للصفحة الثانية */
+
+function checkPassword() {
+
+    const password = document.getElementById("password").value;
+    const error = document.getElementById("errorMessage");
+    const box = document.getElementById("loginBox");
+
+    if (password.toLowerCase().trim() === "salma") {
+
+        window.location.href = "about.html";
+
+    } else {
+
+        error.style.display = "block";
+
+        box.classList.remove("shake");
+
+        void box.offsetWidth;
+
+        box.classList.add("shake");
+    }
+}
+
+/* الفراشات */
+function createButterfly() {
+
+    const butterfly = document.createElement("div");
+
+    butterfly.className = "butterfly";
+
+    butterfly.innerHTML =
+        `🦋 <span>Salma</span> 🦋`;
+
+    butterfly.style.left = Math.random() * 100 + "vw";
+    butterfly.style.top = Math.random() * 100 + "vh";
+
+    butterfly.style.animationDuration =
+        (6 + Math.random() * 6) + "s";
+
+    effects.appendChild(butterfly);
+
+    setTimeout(() => butterfly.remove(), 12000);
+}
+
+setInterval(createButterfly, 500);
+
+/* القلوب */
+function createHeart() {
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+
+    const list = [
+        "❤️", "💗", "💕", "💖",
+        "💘", "💝", "💓"
+    ];
+
+    heart.innerHTML =
+        list[Math.floor(Math.random() * list.length)];
+
+    heart.style.left = Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (15 + Math.random() * 30) + "px";
+
+    heart.style.animationDuration =
+        (5 + Math.random() * 7) + "s";
+
+    effects.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 12000);
+}
+
+setInterval(createHeart, 250);
+
+/* النجوم */
+function createStar() {
+
+    const star = document.createElement("div");
+
+    star.className = "star";
+
+    star.innerHTML = "✦";
+
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 100 + "vh";
+
+    star.style.fontSize =
+        (10 + Math.random() * 20) + "px";
+
+    effects.appendChild(star);
+
+    setTimeout(() => star.remove(), 3000);
+}
+
+setInterval(createStar, 300);
+
+</script>
+
+</body>
+</html>

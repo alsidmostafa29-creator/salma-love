@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ذكرياتنا يا سلمى ❤️</title>
+
+<!-- الخطوط -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+.start-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(25, 0, 18, 0.94);
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 20px;
+    text-align: center;
+    transition: opacity 0.4s ease;
+}
+
+.start-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.start-overlay h2 {
+    font-family: 'Amiri', serif;
+    font-size: 34px;
+    color: #ffc5e3;
+    text-shadow: 0 0 18px #ff1493;
+}
+
+.start-btn {
+    padding: 15px 32px;
+    border-radius: 30px;
+    border: 2px solid #ffb5dc;
+    background: linear-gradient(45deg, #ff005d, #ff69b4, #a00060);
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 25px #ff1493;
+    transition: transform 0.25s ease;
+}
+
+.start-btn:hover {
+    transform: scale(1.06);
+}
+    music-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 60;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 18px;
+    border-radius: 30px;
+    border: 1.5px solid #ffb5dc;
+
+    background: linear-gradient(45deg, rgba(255, 0, 93, 0.88), rgba(255, 105, 180, 0.88));
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 18px rgba(255, 20, 147, 0.45);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 28px rgba(255, 105, 180, 0.75);
+}
+
+.music-btn.playing {
+    animation: pulseGlow 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    from { box-shadow: 0 0 14px rgba(255, 20, 147, 0.45); }
+    to { box-shadow: 0 0 26px rgba(255, 180, 220, 0.85); }
+}
+    /* الإعدادات العامة */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Cairo', sans-serif;
+    background: #230014;
+    color: white;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* الخلفية */
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background: url("images/love-bg.png") center center / cover no-repeat;
+    filter: blur(5px) brightness(0.35);
+    transform: scale(1.05);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+        135deg,
+        rgba(45, 0, 30, 0.72),
+        rgba(130, 0, 65, 0.52),
+        rgba(25, 0, 25, 0.80)
+    );
+}
+
+/* الحاوية الرئيسية */
+.main {
+    width: 92%;
+    max-width: 980px;
+    margin: auto;
+    padding: 45px 0 70px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* العنوان */
+h1 {
+    font-family: 'Amiri', serif;
+    font-size: 44px;
+    color: #ffc5e3;
+    text-shadow:
+        0 0 10px #ff1493,
+        0 0 25px #ff69b4;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 17px;
+    color: #ffe1ef;
+    margin-bottom: 35px;
+    line-height: 1.8;
+}
+
+/* شبكة كروت الذكريات */
+.memories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+    gap: 26px;
+    margin-top: 20px;
+}
+
+/* كارت الذكرى */
+.memory-card {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.14),
+        rgba(255, 105, 180, 0.10)
+    );
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 190, 225, 0.65);
+    border-radius: 26px;
+    overflow: hidden;
+    box-shadow:
+        0 10px 30px rgba(255, 0, 120, 0.22),
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    opacity: 0;
+    transform: translateY(25px);
+    animation: cardFadeIn 0.8s ease forwards;
+}
+
+.memory-card:nth-child(2) { animation-delay: 0.15s; }
+.memory-card:nth-child(3) { animation-delay: 0.3s; }
+.memory-card:nth-child(4) { animation-delay: 0.45s; }
+.memory-card:nth-child(5) { animation-delay: 0.6s; }
+.memory-card:nth-child(6) { animation-delay: 0.75s; }
+
+@keyframes cardFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.memory-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: #ffb6de;
+    box-shadow:
+        0 14px 38px rgba(255, 20, 147, 0.42),
+        0 0 20px rgba(255, 105, 180, 0.35);
+}
+
+/* إطار الصورة */
+.photo-box {
+    position: relative;
+    width: 100%;
+    height: 225px;
+    overflow: hidden;
+    cursor: pointer;
+    background: rgba(35, 0, 20, 0.6);
+}
+
+.photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s ease;
+}
+
+.memory-card:hover .photo-box img {
+    transform: scale(1.08);
+}
+
+.photo-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(45, 0, 30, 0.78);
+    border: 1px solid rgba(255, 180, 220, 0.7);
+    color: #ffd1e8;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+}
+
+.zoom-hint {
+    position: absolute;
+    inset: 0;
+    background: rgba(25, 0, 20, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.photo-box:hover .zoom-hint {
+    opacity: 1;
+}
+
+/* محتوى الكارت */
+.card-body {
+    padding: 20px 18px 24px;
+}
+
+.card-title {
+    font-family: 'Amiri', serif;
+    font-size: 26px;
+    color: #ffadd7;
+    text-shadow: 0 0 10px rgba(255, 20, 147, 0.7);
+    margin-bottom: 8px;
+}
+
+.card-text {
+    font-size: 15.5px;
+    line-height: 1.9;
+    color: #fff5fa;
+}
+
+/* نافذة تكبير الصورة (Lightbox) */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(15, 0, 12, 0.88);
+    backdrop-filter: blur(10px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.lightbox.active {
+    display: flex;
+    animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 640px;
+    width: 100%;
+    background: rgba(45, 0, 32, 0.92);
+    border: 1.5px solid #ff9ed2;
+    border-radius: 26px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255, 20, 147, 0.45);
+}
+
+.lightbox-content img {
+    width: 100%;
+    max-height: 62vh;
+    object-fit: contain;
+    border-radius: 18px;
+    margin-bottom: 14px;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.lightbox-title {
+    font-family: 'Amiri', serif;
+    font-size: 28px;
+    color: #ffc5e3;
+    margin-bottom: 6px;
+}
+
+.lightbox-caption {
+    font-size: 16px;
+    color: #ffe6f2;
+    line-height: 1.8;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    left: 14px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid #ffb5dc;
+    background: linear-gradient(45deg, #ff005d, #ff69b4);
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ff1493;
+}
+
+/* الأزرار */
+.buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 45px;
+}
+
+.buttons a {
+    text-decoration: none;
+    padding: 14px 26px;
+    min-width: 210px;
+    border-radius: 30px;
+    border: 2px solid #ffb5dc;
+    background: linear-gradient(45deg, #ff005d, #ff69b4, #a00060);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    box-shadow: 0 0 20px #ff1493;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.buttons a:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 35px #ff69b4;
+}
+
+/* الخاتمة */
+.footer {
+    color: #ffb5dc;
+    margin-top: 35px;
+    font-family: 'Amiri', serif;
+    font-size: 28px;
+    text-shadow: 0 0 15px #ff1493;
+}
+
+/* الفراشات والقلوب */
+.butterfly {
+    position: fixed;
+    z-index: 1;
+    pointer-events: none;
+    white-space: nowrap;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 10px white, 0 0 20px #ff00cc;
+    animation: fly 10s linear forwards;
+}
+
+@keyframes fly {
+    0% { transform: translateY(100px) rotate(0deg); opacity: 0; }
+    20% { opacity: 1; }
+    50% { transform: translateY(-40vh) translateX(70px) rotate(20deg); }
+    100% { transform: translateY(-110vh) translateX(-60px) rotate(-20deg); opacity: 0; }
+}
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    z-index: 1;
+    pointer-events: none;
+    animation: heartMove linear forwards;
+}
+
+@keyframes heartMove {
+    0% { transform: translateY(0) rotate(0); opacity: 0; }
+    20% { opacity: 0.9; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+/* الموبايل */
+@media (max-width: 600px) {
+    h1 { font-size: 33px; }
+    .subtitle { font-size: 14.5px; }
+    .photo-box { height: 200px; }
+    .card-title { font-size: 23px; }
+    .buttons a { width: 90%; }
+    .footer { font-size: 23px; }
+}
+</style>
+</head>
+
+<body>
+<div class="start-overlay" id="startOverlay">
+    <h2>✨ ذكرياتنا يا سلمى ✨</h2>
+    <button class="start-btn" type="button" onclick="enterMemoriesWithMusic()">
+        🎶 افتحي الذكريات واسمعي الأغنية
+    </button>
+</div>
+<div class="background"></div>
+<div class="overlay"></div>
+<button class="music-btn" id="musicBtn" type="button" onclick="toggleLoveMusic()">
+    <span id="musicIcon">🎵</span>
+    <span id="musicText">الأغنية شغالة</span>
+</button>
+
+<audio id="loveMusic" src="audio/Khaleeny.mp3" autoplay loop preload="auto"></audio>
+<div class="main">
+
+    <h1>✨ ذكرياتنا يا سلمى ✨</h1>
+    <p class="subtitle">
+        كل صورة هنا فيها حتة من قلبي.. وكل ذكرى بتفكرني إنك أجمل اختيار في حياتي ❤️
+    </p>
+
+    <div class="memories-grid">
+
+        <!-- كارت 1 -->
+        <div class="memory-card">
+            <div class="photo-box" onclick="openLightbox('images/memory1.jpg', 'بداية حكايتنا 🌸', 'اليوم اللي حسيت فيه إن قلبي لقى مكانه الحقيقي.')">
+                <img src="images/memory1.jpg" alt="ذكرى 1" onerror="this.src='images/love-bg.png'">
+                <span class="photo-badge">ذكرى 1</span>
+                <div class="zoom-hint">🔍 اضغطي لتكبير الصورة</div>
+            </div>
+            <div class="card-body">
+                <h2 class="card-title">بداية حكايتنا 🌸</h2>
+                <p class="card-text">
+                    أجمل بداية عرفتها.. من أول لحظة دخلتي فيها حياتي وكل حاجة بقت أحلى وأهدى.
+                </p>
+            </div>
+        </div>
+
+        <!-- كارت 2 -->
+        <div class="memory-card">
+            <div class="photo-box" onclick="openLightbox('images/memory2.jpg', 'ضحكتك بالدنيا 😊', 'ضحكتك اللي بتنسيني أي تعب أو زعل في ثانية.')">
+                <img src="images/memory2.jpg" alt="ذكرى 2" onerror="this.src='images/love-bg.png'">
+                <span class="photo-badge">ذكرى 2</span>
+                <div class="zoom-hint">🔍 اضغطي لتكبير الصورة</div>
+            </div>
+            <div class="card-body">
+                <h2 class="card-title">ضحكتك بالدنيا 😊</h2>
+                <p class="card-text">
+                    مش عايز غير ضحكتك تفضل منورة وشك.. عشان فرحتك هي فرحتي.
+                </p>
+            </div>
+        </div>
+
+        <!-- كارت 3 -->
+        <div class="memory-card">
+            <div class="photo-box" onclick="openLightbox('images/memory3.jpg', 'لحظاتنا الحلوة 💕', 'كل وقت قضيناه سوا محفور جوايا بأحلى تفاصيله.')">
+                <img src="images/memory3.jpg" alt="ذكرى 3" onerror="this.src='images/love-bg.png'">
+                <span class="photo-badge">ذكرى 3</span>
+                <div class="zoom-hint">🔍 اضغطي لتكبير الصورة</div>
+            </div>
+            <div class="card-body">
+                <h2 class="card-title">لحظاتنا الحلوة 💕</h2>
+                <p class="card-text">
+                    أبسط الكلام واللحظات معاكي بتتحول لذكريات غالية جداً على قلبي.
+                </p>
+            </div>
+        </div>
+
+        <!-- كارت 4 -->
+        <div class="memory-card">
+            <div class="photo-box" onclick="openLightbox('images/memory4.jpg', 'أماني وسندي 🦋', 'وجودك جنبي بيخليني أقوى وأقدر أواجه أي حاجة.')">
+                <img src="images/memory4.jpg" alt="ذكرى 4" onerror="this.src='images/love-bg.png'">
+                <span class="photo-badge">ذكرى 4</span>
+                <div class="zoom-hint">🔍 اضغطي لتكبير الصورة</div>
+            </div>
+            <div class="card-body">
+                <h2 class="card-title">أماني وسندي 🦋</h2>
+                <p class="card-text">
+                    إنتِ مش بس حبيبتي، إنتِ الأمان والونس اللي قلبي بيطمن بيه.
+                </p>
+            </div>
+        </div>
+
+        <!-- كارت 5 -->
+        <div class="memory-card">
+            <div class="photo-box" onclick="openLightbox('images/memory5.jpg', 'إنتِ اختياري دايماً 💖', 'مهما عدى الوقت، هفضل أختارك إنتِ من جديد.')">
+                <img src="images/memory5.jpg" alt="ذكرى 5" onerror="this.src='images/love-bg.png'">
+                <span class="photo-badge">ذكرى 5</span>
+                <div class="zoom-hint">🔍 اضغطي لتكبير الصورة</div>
+            </div>
+            <div class="card-body">
+                <h2 class="card-title">إنتِ اختياري دايماً 💖</h2>
+                <p class="card-text">
+                    كل يوم بيكبر حبي ليكي أكتر.. وبتأكد إنك أحسن حاجة حصلتلي.
+                </p>
+            </div>
+        </div>
+
+        <!-- كارت 6 -->
+        <div class="memory-card">
+            <div class="photo-box" onclick="openLightbox('images/memory6.jpg', 'اللي جاي أحلى مع بعض ❤️', 'مستقبلنا لسه قدامنا وهنعمل فيه صور وذكريات أكتر.')">
+                <img src="images/memory6.jpg" alt="ذكرى 6" onerror="this.src='images/love-bg.png'">
+                <span class="photo-badge">ذكرى 6</span>
+                <div class="zoom-hint">🔍 اضغطي لتكبير الصورة</div>
+            </div>
+            <div class="card-body">
+                <h2 class="card-title">اللي جاي أحلى مع بعض ❤️</h2>
+                <p class="card-text">
+                    دي مجرد بداية لصور وذكريات كتير جاية واحنا سوا بإذن الله.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="buttons">
+        <a href="about.html">💌 الرجوع للرسائل</a>
+        <a href="welcome.html">❤️ الرجوع للبداية</a>
+    </div>
+
+    <div class="footer">
+        إلى الأبد يا سلمى.. قلبي ليكي إنتِ وبس ❤️
+    </div>
+
+</div>
+
+<!-- نافذة تكبير الصورة -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+        <button class="close-btn" onclick="closeLightbox()">×</button>
+        <img id="lightboxImg" src="" alt="صورة مكبرة">
+        <div class="lightbox-title" id="lightboxTitle"></div>
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+</div>
+
+<script>
+    function enterMemoriesWithMusic() {
+    document.getElementById("startOverlay").classList.add("hidden");
+    startLoveMusic();
+}
+const loveMusic = document.getElementById("loveMusic");
+const musicBtn = document.getElementById("musicBtn");
+const musicIcon = document.getElementById("musicIcon");
+const musicText = document.getElementById("musicText");
+
+let loveFadeTimer = null;
+let loveMusicStarted = false;
+
+function fadeLoveVolume(targetVol, durationMs = 2000) {
+    clearInterval(loveFadeTimer);
+    const startVol = loveMusic.volume;
+    const steps = 25;
+    const stepTime = durationMs / steps;
+    const stepDiff = (targetVol - startVol) / steps;
+    let count = 0;
+
+    loveFadeTimer = setInterval(() => {
+        count++;
+        loveMusic.volume = Math.max(0, Math.min(1, startVol + stepDiff * count));
+        if (count >= steps) clearInterval(loveFadeTimer);
+    }, stepTime);
+}
+
+async function startLoveMusic() {
+    try {
+        loveMusic.volume = 0.05;
+        await loveMusic.play();
+        loveMusicStarted = true;
+        musicBtn.classList.add("playing");
+        musicIcon.textContent = "🎶";
+        musicText.textContent = "الأغنية شغالة";
+        fadeLoveVolume(0.32, 2000);
+    } catch (e) {
+        // لو المتصفح منع التشغيل التلقائي قبل أي تفاعل
+        musicBtn.classList.remove("playing");
+        musicIcon.textContent = "🎵";
+        musicText.textContent = "دوسي لتشغيل الأغنية";
+    }
+}
+
+function toggleLoveMusic() {
+    if (loveMusic.paused) {
+        startLoveMusic();
+    } else {
+        clearInterval(loveFadeTimer);
+        loveMusic.pause();
+        musicBtn.classList.remove("playing");
+        musicIcon.textContent = "🎵";
+        musicText.textContent = "شغّلي الأغنية";
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    startLoveMusic();
+});
+
+// لو المتصفح أوقف التشغيل التلقائي في الأول، أول ضغطة أو لمسة تشغلها فوراً
+document.addEventListener("pointerdown", () => {
+    if (loveMusic.paused && !loveMusicStarted) {
+        startLoveMusic();
+    }
+}, { once: true });
+    function openLightbox(imgSrc, title, caption) {
+    const lightbox = document.getElementById("lightbox");
+    const img = document.getElementById("lightboxImg");
+    // لو الصورة مش موجودة، استخدم الخلفية كبديل مؤقت
+    const tempImg = new Image();
+    tempImg.onload = () => { img.src = imgSrc; };
+    tempImg.onerror = () => { img.src = "images/love-bg.png"; };
+    tempImg.src = imgSrc;
+
+    document.getElementById("lightboxTitle").textContent = title;
+    document.getElementById("lightboxCaption").textContent = caption;
+    lightbox.classList.add("active");
+}
+
+function closeLightbox() {
+    document.getElementById("lightbox").classList.remove("active");
+}
+
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+});
+
+/* الفراشات */
+function createButterfly() {
+    const butterfly = document.createElement("div");
+    butterfly.className = "butterfly";
+    butterfly.textContent = "🦋 Salma 🦋";
+    butterfly.style.left = Math.random() * 100 + "vw";
+    butterfly.style.top = "100vh";
+    butterfly.style.animationDuration = (7 + Math.random() * 7) + "s";
+    document.body.appendChild(butterfly);
+    setTimeout(() => butterfly.remove(), 15000);
+}
+setInterval(createButterfly, 900);
+
+/* القلوب */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    const list = ["❤️", "💕", "💗", "💖", "💘", "💝", "💓"];
+    heart.textContent = list[Math.floor(Math.random() * list.length)];
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+    heart.style.animationDuration = (6 + Math.random() * 6) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 12000);
+}
+setInterval(createHeart, 400);
+</script>
+
+</body>
+</html>

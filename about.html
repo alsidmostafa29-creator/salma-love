@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>حببتي ودنيتي سلمى ❤️</title>
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>رسالة حب إلى سلمى ❤️</title>
+
+<!-- الخطوط -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+.music-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 20;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 18px;
+    border-radius: 30px;
+    border: 1.5px solid #ffb5dc;
+
+    background: linear-gradient(45deg, rgba(255, 0, 93, 0.88), rgba(255, 105, 180, 0.88));
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 18px rgba(255, 20, 147, 0.45);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.music-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 28px rgba(255, 105, 180, 0.75);
+}
+
+.music-btn.playing {
+    animation: pulseGlow 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+    from { box-shadow: 0 0 14px rgba(255, 20, 147, 0.45); }
+    to { box-shadow: 0 0 26px rgba(255, 180, 220, 0.85); }
+}}
+/* الإعدادات العامة */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Cairo', sans-serif;
+    background: #230014;
+    color: white;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* الخلفية */
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+
+    background:
+        url("images/love-bg.png")
+        center center / cover no-repeat;
+
+    filter: blur(4px) brightness(0.38);
+
+    transform: scale(1.04);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    background: linear-gradient(
+        135deg,
+        rgba(50,0,35,.65),
+        rgba(130,0,65,.50),
+        rgba(30,0,30,.75)
+    );
+}
+
+/* المحتوى الأساسي */
+
+.main {
+    width: 92%;
+    max-width: 780px;
+
+    margin: auto;
+    padding: 40px 0 60px;
+
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* العنوان */
+
+h1 {
+    font-family: 'Amiri', serif;
+    font-size: 42px;
+
+    color: #ffc5e3;
+
+    text-shadow:
+        0 0 10px #ff1493,
+        0 0 25px #ff69b4;
+
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 17px;
+    color: #ffe1ef;
+    margin-bottom: 35px;
+}
+
+/* الرسائل */
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 23px;
+}
+
+.message {
+    display: none;
+    opacity: 0;
+
+    padding: 28px 25px;
+    margin-bottom: 5px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,.15),
+        rgba(255,100,170,.10)
+    );
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255,190,225,.65);
+    border-radius: 25px;
+
+    box-shadow:
+        0 8px 30px rgba(255,0,120,.20),
+        inset 0 0 20px rgba(255,255,255,.05);
+
+    color: #fff5fa;
+
+    font-family: 'Cairo', sans-serif;
+    font-size: 19px;
+    font-weight: 500;
+
+    line-height: 2.3;
+    word-spacing: 4px;
+
+    text-align: justify;
+    text-align-last: center;
+}
+
+.message.show {
+    display: block;
+    animation: appear 1.3s ease forwards;
+}
+
+/* عنوان الرسالة */
+
+.number {
+    font-family: 'Amiri', serif;
+    font-size: 28px;
+    font-weight: bold;
+
+    color: #ffadd7;
+    text-align: center;
+
+    margin-bottom: 16px;
+
+    text-shadow: 0 0 12px #ff1493;
+}
+
+/* الكلمات */
+
+.message p {
+    margin: 0;
+    min-height: 40px;
+}
+
+.word {
+    display: inline-block;
+    opacity: 0;
+
+    margin-inline: 2px;
+
+    animation: wordAppear .5s ease forwards;
+}
+
+@keyframes wordAppear {
+
+    from {
+        opacity: 0;
+        filter: blur(5px);
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+    }
+
+}
+
+/* ظهور الرسائل */
+
+@keyframes appear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+/* الفراشات */
+
+.butterfly {
+    position: fixed;
+    z-index: 1;
+
+    pointer-events: none;
+    white-space: nowrap;
+
+    font-size: 21px;
+    font-weight: bold;
+
+    color: white;
+
+    text-shadow:
+        0 0 10px white,
+        0 0 20px #ff00cc;
+
+    animation: fly 10s linear forwards;
+}
+
+@keyframes fly {
+
+    0% {
+        transform: translateY(100px) rotate(0deg);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-40vh) translateX(70px) rotate(20deg);
+    }
+
+    100% {
+        transform: translateY(-110vh) translateX(-60px) rotate(-20deg);
+        opacity: 0;
+    }
+
+}
+
+/* القلوب */
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    z-index: 1;
+
+    pointer-events: none;
+
+    animation: heartMove linear forwards;
+}
+
+@keyframes heartMove {
+
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: .9;
+    }
+
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+
+}
+
+/* الأزرار */
+
+.buttons {
+    display: none;
+
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+
+    margin-top: 35px;
+}
+
+.buttons.show {
+    display: flex;
+    animation: appear 1.5s ease forwards;
+}
+
+.buttons a {
+    text-decoration: none;
+
+    padding: 15px 25px;
+    min-width: 210px;
+
+    border-radius: 30px;
+    border: 2px solid #ffb5dc;
+
+    background: linear-gradient(
+        45deg,
+        #ff005d,
+        #ff69b4,
+        #a00060
+    );
+
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+
+    box-shadow: 0 0 20px #ff1493;
+
+    transition: .3s;
+}
+
+.buttons a:hover {
+    transform: scale(1.07);
+
+    box-shadow: 0 0 35px #ff69b4;
+}
+
+/* الخاتمة */
+
+.footer {
+    display: none;
+
+    color: #ffb5dc;
+    margin-top: 30px;
+
+    font-family: 'Amiri', serif;
+    font-size: 28px;
+
+    text-shadow: 0 0 15px #ff1493;
+}
+
+.footer.show {
+    display: block;
+    animation: appear 1.5s ease forwards;
+}
+
+/* الموبايل */
+
+@media(max-width:600px) {
+
+    .main {
+        width: 92%;
+        padding-top: 30px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .message {
+        padding: 22px 17px;
+        font-size: 17px;
+
+        line-height: 2.2;
+        word-spacing: 2px;
+
+        border-radius: 20px;
+    }
+
+    .number {
+        font-size: 24px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttons a {
+        width: 90%;
+    }
+
+    .footer {
+        font-size: 23px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- الخلفية -->
+
+<div class="background"></div>
+<div class="overlay"></div>
+
+<!-- المحتوى -->
+<button class="music-btn" id="musicBtn" type="button" onclick="toggleMusic()">
+    <span id="musicIcon">🎵</span>
+    <span id="musicText">شغّلي الأغنية</span>
+</button>
+
+<audio id="bgMusic" src="audio/7obk%20Rezk.mp3" loop preload="auto"></audio>
+<div class="main">
+
+    <h1>❤️ حبيبتي سلمى ❤️</h1>
+
+    <p class="subtitle">
+        في كلام كتير جوايا نفسي أوصلهولك 🦋
+    </p>
+
+    <!-- الرسائل -->
+
+    <div class="messages" id="messages">
+
+        <!-- الرسالة الأولى -->
+
+        <div class="message">
+
+            <div class="number">
+                💌 رسالة من قلبي ليكي
+            </div>
+
+            <p>
+                حابب أصلح ليكي كل حاجة يا أغلى سلمى في حياتي،
+                وأغلى من عيوني.
+                مهما زعلتك، قلبي عمره ما بطل يحبك،
+                ومهما حصل بينا مش عايز أخسر ضحكتك
+                ولا أخسر حبك.
+                إنتِ أجمل حاجة حصلتلي،
+                وقلبي اختارك من بين كل الدنيا كلها ❤️
+            </p>
+
+        </div>
+
+        <!-- الرسالة الثانية -->
+
+        <div class="message">
+
+            <div class="number">
+                🥺 أنا آسف يا حبيبتي
+            </div>
+
+            <p>
+                عارف إن كلمة آسف مش كفاية تمسح الزعل،
+                وعارف إن ممكن أكون وجعت قلبك بكلام
+                أو تصرفات مكنتش أقصد بيها أزعلك.
+                بس والله عمري ما كان قصدي أكون سبب
+                في دمعة من عيونك.
+                سامحيني على كل لحظة زعلتك فيها،
+                ونفسي أثبتلك بأفعالي قبل كلامي
+                إني أقدر أكون أحسن ليكي.
+            </p>
+
+        </div>
+
+        <!-- الرسالة الثالثة -->
+
+        <div class="message">
+
+            <div class="number">
+                ❤️ إنتِ اختياري
+            </div>
+
+            <p>
+                اتأكدي إن مفيش حد هيحبك زيي،
+                آه ممكن ييجي حد، بس مش زي مصطفى.
+                مش بقول إني كامل أو مفيش مني غلط،
+                أنا عندي عيوب وحاجات كتير محتاج أصلحها،
+                بس عندي قلب اختارك وعايز يكمل معاكي.
+                أنا مش عايز منك تكوني مثالية،
+                أنا عايزنا نتقبل بعض ونساعد بعض
+                ونبقى أحسن لبعض كل يوم.
+            </p>
+
+        </div>
+
+        <!-- الرسالة الرابعة -->
+
+        <div class="message">
+
+            <div class="number">
+                🦋 مستقبلنا سوا
+            </div>
+
+            <p>
+                إحنا لسه صغيرين وهنكبر مع بعض،
+                وإنتِ عرفتيني وأنا عرفتك،
+                ومش عايزين ندور على نفسنا في أشخاص تانيين
+                ولا ندور على بديل لبعض.
+                أي حاجة فيها مشكلة نحلها مع بعض،
+                وأي خلاف نتكلم فيه بدل ما نبعد.
+                نفسي نكون لبعض أمان وسند وضهر،
+                ونفضل نختار بعض كل يوم من جديد.
+                أنا مش بطلب إننا منختلفش،
+                أنا بطلب إننا منسيبش الخلاف يفرقنا.
+            </p>
+
+        </div>
+
+        <!-- الرسالة الخامسة -->
+
+        <div class="message">
+
+            <div class="number">
+                💗 وعد مني ليكي
+            </div>
+
+            <p>
+                أوعدك إني أحاول أفهمك أكتر،
+                وأسمعك قبل ما أحكم،
+                وأهتم بزعلِك حتى لو شايف الموضوع بسيط.
+                مش عايز أكون مجرد شخص في حياتك،
+                عايز أكون الشخص اللي ترتاحي معاه
+                وتحكيله كل اللي جواكي من غير خوف.
+                حقك عليا يا أغلى من عيوني،
+                ونفسي نبدأ صفحة جديدة كلها حب وحنية.
+                بحبك يا سلمى ❤️
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- الأزرار -->
+<div class="buttons" id="buttons">
+
+    <a href="welcome.html">
+        ❤️ الرجوع للبداية
+    </a>
+
+    <a href="love.html">
+        💌 كملي المفاجأة يا سلمى
+    </a>
+
+</div>
+
+
+
+    <!-- الخاتمة -->
+
+    <div class="footer" id="footer">
+
+        بحبك يا سلمى.. وقلبي اختارك إنتِ ❤️
+
+    </div>
+
+</div>
+
+
+<script>
+const bgMusic = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+const musicIcon = document.getElementById("musicIcon");
+const musicText = document.getElementById("musicText");
+
+let fadeInterval = null;
+let musicStartedByUser = false;
+
+function fadeVolumeTo(targetVolume, durationMs = 2400) {
+    clearInterval(fadeInterval);
+    const startVolume = bgMusic.volume;
+    const steps = 30;
+    const stepTime = durationMs / steps;
+    const delta = (targetVolume - startVolume) / steps;
+    let currentStep = 0;
+
+    fadeInterval = setInterval(() => {
+        currentStep++;
+        const nextVol = startVolume + delta * currentStep;
+        bgMusic.volume = Math.max(0, Math.min(1, nextVol));
+        if (currentStep >= steps) {
+            clearInterval(fadeInterval);
+        }
+    }, stepTime);
+}
+
+async function playGentleMusic() {
+    try {
+        bgMusic.volume = 0.04;
+        await bgMusic.play();
+        musicStartedByUser = true;
+        musicBtn.classList.add("playing");
+        musicIcon.textContent = "🎶";
+        musicText.textContent = "الأغنية شغالة";
+        // مستوى هادي جداً عشان الكلام يفضل واضح ومريح
+        fadeVolumeTo(0.28, 2500);
+    } catch (err) {
+        musicBtn.classList.remove("playing");
+        musicIcon.textContent = "🎵";
+        musicText.textContent = "دوسي لتشغيل الأغنية";
+    }
+}
+
+function pauseGentleMusic() {
+    clearInterval(fadeInterval);
+    bgMusic.pause();
+    musicBtn.classList.remove("playing");
+    musicIcon.textContent = "🎵";
+    musicText.textContent = "شغّلي الأغنية";
+}
+
+function toggleMusic() {
+    if (bgMusic.paused) {
+        playGentleMusic();
+    } else {
+        pauseGentleMusic();
+    }
+}
+
+// محاولة التشغيل أول ما الصفحة تفتح
+window.addEventListener("DOMContentLoaded", () => {
+    playGentleMusic();
+});
+
+// لو المتصفح منع التشغيل التلقائي، أول لمسة أو ضغطة في أي مكان تشغلها بهدوء
+document.addEventListener("pointerdown", () => {
+    if (bgMusic.paused && !musicStartedByUser) {
+        playGentleMusic();
+    }
+}, { once: true });
+
+function pauseGentleMusic() {
+    clearInterval(fadeInterval);
+    bgMusic.pause();
+    musicBtn.classList.remove("playing");
+    musicIcon.textContent = "🎵";
+    musicText.textContent = "شغّلي الأغنية";
+}
+
+function toggleMusic() {
+    if (bgMusic.paused) {
+        playGentleMusic();
+    } else {
+        pauseGentleMusic();
+    }
+}
+
+// محاولة التشغيل التلقائي عند فتح الصفحة + تشغيل تلقائي عند أول لمسة/ضغطة في الصفحة
+window.addEventListener("DOMContentLoaded", () => {
+    playGentleMusic();
+});
+
+document.addEventListener("click", () => {
+    if (bgMusic.paused) {
+        playGentleMusic();
+    }
+}, { once: true });
+/* انتظار */
+
+function wait(ms) {
+
+    return new Promise(resolve => setTimeout(resolve, ms));
+
+}
+
+
+/* إظهار الكلمات تدريجيا */
+
+async function showWords(message) {
+
+    const paragraph = message.querySelector("p");
+
+    const originalText = paragraph.textContent.trim();
+
+    const words = originalText.split(/\s+/);
+
+    paragraph.textContent = "";
+
+    for (const word of words) {
+
+        const span = document.createElement("span");
+
+        span.className = "word";
+
+        span.textContent = word;
+
+        paragraph.appendChild(span);
+
+        await wait(260);
+
+    }
+
+}
+
+
+/* تشغيل الرسائل */
+
+const messages = document.querySelectorAll(".message");
+
+const buttons = document.getElementById("buttons");
+
+const footer = document.getElementById("footer");
+
+
+async function startMessages() {
+
+    for (let i = 0; i < messages.length; i++) {
+
+        const message = messages[i];
+
+        message.classList.add("show");
+
+        await wait(700);
+
+        await showWords(message);
+
+        await wait(2500);
+
+    }
+
+    /* إظهار الأزرار */
+
+    buttons.classList.add("show");
+
+    footer.classList.add("show");
+
+}
+
+
+/* بدء عرض الرسائل */
+
+startMessages();
+
+
+/* إنشاء الفراشات */
+
+function createButterfly() {
+
+    const butterfly = document.createElement("div");
+
+    butterfly.className = "butterfly";
+
+    butterfly.textContent = "🦋 Salma 🦋";
+
+    butterfly.style.left =
+        Math.random() * 100 + "vw";
+
+    butterfly.style.top = "100vh";
+
+    butterfly.style.animationDuration =
+        (7 + Math.random() * 7) + "s";
+
+    document.body.appendChild(butterfly);
+
+    setTimeout(() => {
+
+        butterfly.remove();
+
+    }, 15000);
+
+}
+
+setInterval(createButterfly, 900);
+
+
+/* إنشاء القلوب */
+
+function createHeart() {
+
+    const heart = document.createElement("div");
+
+    heart.className = "heart";
+
+    const list = [
+        "❤️",
+        "💕",
+        "💗",
+        "💖",
+        "💘",
+        "💝",
+        "💓"
+    ];
+
+    heart.textContent =
+        list[Math.floor(Math.random() * list.length)];
+
+    heart.style.left =
+        Math.random() * 100 + "vw";
+
+    heart.style.fontSize =
+        (15 + Math.random() * 25) + "px";
+
+    heart.style.animationDuration =
+        (6 + Math.random() * 6) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+
+        heart.remove();
+
+    }, 12000);
+
+}
+
+setInterval(createHeart, 400);
+
+</script>
+
+</body>
+</html>
